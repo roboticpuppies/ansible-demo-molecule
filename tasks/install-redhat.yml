@@ -1,0 +1,18 @@
+---
+- name: Install prerequisites
+  ansible.builtin.package:
+    name: yum-utils
+    state: present
+
+- name: Configure nginx repository
+  ansible.builtin.template:
+    src: nginx.repo.j2
+    dest: /etc/yum.repos.d/nginx.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install nginx
+  ansible.builtin.package:
+    name: nginx
+    state: present

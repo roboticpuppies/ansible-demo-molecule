@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Get OS Family.
+      debug:
+        msg: "{{ ansible_os_family }}"
+
+  roles:
+    - role: ansible-demo-molecule
