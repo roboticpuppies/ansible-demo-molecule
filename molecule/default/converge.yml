@@ -2,6 +2,7 @@
 - name: Converge
   hosts: all
   tasks:
+    # Dummy task just to check the OS family.
     - name: Get OS Family.
       debug:
         msg: "{{ ansible_os_family }}"
