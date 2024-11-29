@@ -2,8 +2,8 @@
 name: CI
 on: workflow_dispatch
 jobs:
-  yamllint:
-    name: YAML linting
+  lint:
+    name: Syntax linting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -12,14 +12,28 @@ jobs:
         uses: ibiqlik/action-yamllint@v3
         with:
           config_file: .yamllint
-
-  ansible-lint:
-    name: Ansible linting
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
       - name: Run ansible-lint
         uses: ansible/ansible-lint@main
         with:
           args: "-c .ansible-lint"
+
+  molecule:
+    name: Run molecule test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install ansible molecule molecule-plugins[docker] docker
+
+      - name: Run Molecule tests.
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
