@@ -1,16 +1,16 @@
 ---
 # https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/
 
-- include_vars: "{{ ansible_os_family | lower }}.yml"
-  name: Include OS specific vars
+- name: Include OS specific vars
+  ansible.builtin.include_vars: "{{ ansible_os_family | lower }}.yml"
 
-- include_tasks: install-redhat.yml
+- name: Install NGINX on Rocky
+  ansible.builtin.include_tasks: install-redhat.yml
   when: ansible_os_family == 'RedHat'
-  name: Install NGINX on Rocky
 
-- include_tasks: install-debian.yml
+- name: Install NGINX on Debian
+  ansible.builtin.include_tasks: install-debian.yml
   when: ansible_os_family == 'Debian'
-  name: Install NGINX on Debian
 
-- include_tasks: post-install.yml
-  name: Set index.html content
+- name: Set index.html content
+  ansible.builtin.include_tasks: post-install.yml

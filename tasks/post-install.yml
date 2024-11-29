@@ -3,7 +3,9 @@
   ansible.builtin.template:
     src: index.html.j2
     dest: "{{ nginx_index_html_location }}/index.html"
-
+    owner: root
+    group: root
+    mode: 0644
 - name: Make sure nginx is started and enabled
   ansible.builtin.systemd:
     name: nginx

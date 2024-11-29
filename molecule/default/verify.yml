@@ -5,7 +5,7 @@
     expected_content: "NGINX is running on {{ansible_distribution}} {{ ansible_distribution_version }} ({{ansible_distribution_release}})"
   tasks:
   - name: Get index.html
-    uri:
+    ansible.builtin.uri:
       url: http://localhost
       return_content: yes
     register: this
