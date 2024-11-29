@@ -1,0 +1,8 @@
+---
+# I use 'relaxed' Only for testing
+extends: relaxed
+
+rules:
+  line-length:
+    max: 140
+    level: warning
